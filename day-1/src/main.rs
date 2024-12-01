@@ -12,22 +12,23 @@ fn main() {
 
     let lines = contents.lines();
 
-    let mut list1: Vec<u64> = Vec::new();
-    let mut list2: Vec<u64> = Vec::new();
+    let mut list1: Vec<i64> = Vec::new();
+    let mut list2: Vec<i64> = Vec::new();
 
     for (_, val) in lines.enumerate() {
         let mut line = val.split_whitespace();
-        list1.push(line.next().unwrap().parse::<u64>().unwrap());
-        list2.push(line.next().unwrap().parse::<u64>().unwrap());
+        list1.push(line.next().unwrap().parse::<i64>().unwrap());
+        list2.push(line.next().unwrap().parse::<i64>().unwrap());
     }
 
-    for val in list1 {
-        let out_str = val.to_string();
-        println!("{}", out_str);
-    }
+    list1.sort();
+    list2.sort();
 
-    for val in list2 {
-        let out_str = val.to_string();
-        println!("{}", out_str);
-    }
+    let total_diff : i64 = list1
+        .iter()
+        .zip(list2.iter()) // Pair up elements from both lists
+        .map(|(a, b)| (a - b).abs()) // Compute the difference
+        .sum();
+
+    println!("total diff: {}", total_diff);
 }
