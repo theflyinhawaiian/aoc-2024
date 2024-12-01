@@ -1,3 +1,4 @@
 - Committed basic list parsing. Program takes in sample list, parses it into two intermediate lists, and then prints it out
 - prompted chatgpt to explain my program, then asked it to provide a more idiomatic version.  Returned a much more concise version.
-- Q&A sesh with chatgpt resulted in much more natural looking code
+- Q&A sesh with chatgpt resulted in much more natural looking codea
+- chatgpt is a terrifyingly effective tool

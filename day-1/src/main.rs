@@ -1,3 +1,4 @@
+use std::collections::HashMap;
 use std::env;
 use std::fs;
 
@@ -21,14 +22,19 @@ fn main() {
         list2.push(line.next().unwrap().parse::<i64>().unwrap());
     }
 
-    list1.sort();
-    list2.sort();
+    // Create a frequency map of elements in list2
+    let mut frequency_map = HashMap::new();
+    for &item in &list2 {
+        *frequency_map.entry(item).or_insert(0) += 1;
+    }
 
-    let total_diff : i64 = list1
-        .iter()
-        .zip(list2.iter()) // Pair up elements from both lists
-        .map(|(a, b)| (a - b).abs()) // Compute the difference
-        .sum();
+    let mut similarity_score = 0;
 
-    println!("total diff: {}", total_diff);
+    // Count how many times each element of list1 appears in list2 using the frequency map
+    for &item in &list1 {
+        let count = frequency_map.get(&item).unwrap_or(&0); // Get the count, default to 0 if not found
+        similarity_score += item * count;
+    }
+
+    println!("{}", similarity_score);
 }
