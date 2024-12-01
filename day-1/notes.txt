@@ -1,0 +1,2 @@
+- Committed basic list parsing. Program takes in sample list, parses it into two intermediate lists, and then prints it out
+- prompted chatgpt to explain my program, then asked it to provide a more idiomatic version.  Returned a much more concise version.
