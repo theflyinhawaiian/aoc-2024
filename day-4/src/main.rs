@@ -2,7 +2,59 @@ use std::fs;
 
 use regex::Regex;
 
-fn main() {
+fn main(){
+    p2();
+}
+
+fn p2() {
+    let contents = fs::read_to_string("data.txt")
+        .expect("Should have been able to read the file");
+
+    let lines : Vec<Vec<char>> = 
+        contents.lines()
+                .map(|line| { 
+                    let vec_chars : Vec<char> = 
+                        line.chars().map(|x| x).collect(); 
+                    vec_chars
+                }).collect();
+
+    let mut count = 0;
+    for i in 1..lines.len()-1 {
+        for j in 1..lines[i].len()-1{
+            if lines[i][j] == 'A' {
+
+                let left_diagonal = get_left_diagonal( &lines, i, j);
+                let right_diagonal = get_right_diagonal(&lines, i, j);
+                
+                if is_mas(left_diagonal) && is_mas(right_diagonal) { count += 1; }
+            }
+        }
+    }
+
+    println!("{}", count);
+}
+
+fn get_left_diagonal(arr: &Vec<Vec<char>>, i: usize, j: usize) -> String {
+    let mut diagonal_1 = Vec::new();
+    diagonal_1.push(arr[i-1][j-1]);
+    diagonal_1.push(arr[i][j]);
+    diagonal_1.push(arr[i+1][j+1]);
+    diagonal_1.iter().map(|x| x).collect::<String>()
+}
+
+fn get_right_diagonal(arr: &Vec<Vec<char>>, i: usize, j: usize) -> String {
+    let mut diagonal_2 = Vec::new();
+    diagonal_2.push(arr[i-1][j+1]);
+    diagonal_2.push(arr[i][j]);
+    diagonal_2.push(arr[i+1][j-1]);
+    diagonal_2.iter().map(|x| x).collect::<String>()
+}
+
+fn is_mas(word: String) -> bool {
+    word == "SAM" || word == "MAS"
+}
+
+fn p1() {
     let contents = fs::read_to_string("data.txt")
         .expect("Should have been able to read the file");
 
